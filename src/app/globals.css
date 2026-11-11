@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* LIGHT = cool tech (indigo / ice blue)  ·  DARK = "Jack" 3D studio */
+:root {
+  --bg: #eef3ff;
+  --bg-2: #e3ebfc;
+  --card: #f8faff;
+  --fg: #0b1026;
+  --muted: #4a5578;
+  --line: rgba(11, 16, 38, 0.11);
+  --accent: #4f46e5;
+  --accent-2: #0ea5e9;
+  --accent-ink: #ffffff;
+  --num: #c7d2fe;
+  --h-from: #1e1b4b;
+  --h-to: #4f46e5;
+  --inv-bg: #0b1026;
+  --inv-fg: #eef3ff;
+  --inv-line: rgba(238, 243, 255, 0.15);
+  --glow: rgba(79, 70, 229, 0.16);
+  --deep: #1e1b4b;
+}
+
+.dark {
+  --bg: #0c0c0c;
+  --bg-2: #121214;
+  --card: #141417;
+  --fg: #d7e2ea;
+  --muted: #8a949e;
+  --line: rgba(215, 226, 234, 0.12);
+  --accent: #c94bff;
+  --accent-2: #ff7a2f;
+  --accent-ink: #ffffff;
+  --num: rgba(215, 226, 234, 0.08);
+  --h-from: #646973;
+  --h-to: #bbccd7;
+  --inv-bg: #ffffff;
+  --inv-fg: #0c0c0c;
+  --inv-line: rgba(12, 12, 12, 0.15);
+  --glow: rgba(201, 75, 255, 0.14);
+  --deep: #1d0f45;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-card: var(--card);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-accent-ink: var(--accent-ink);
+  --color-num: var(--num);
+  --color-inv-bg: var(--inv-bg);
+  --color-inv-fg: var(--inv-fg);
+  --color-inv-line: var(--inv-line);
+  --color-deep: var(--deep);
+  --font-display: "Kanit", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --animate-spin-slow: spin 1.6s linear infinite;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  overflow-x: clip;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Jack: gradient heading */
+.hero-heading {
+  background: linear-gradient(180deg, var(--h-from) 0%, var(--h-to) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Jack: gradient pill button */
+.btn-glow {
+  background: linear-gradient(123deg, #18011f 7%, #b600a8 37%, #7621b0 72%, #be4c00 100%);
+  box-shadow: 0px 4px 4px rgba(181, 1, 167, 0.25), 4px 4px 12px #7721b1 inset;
+  outline: 2px solid #fff;
+  outline-offset: -3px;
+}
+
+/* Melli: big section numbers */
+.num {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  font-size: clamp(110px, 15vw, 250px);
+  color: var(--num);
+}
+.dark .num {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(215, 226, 234, 0.25);
+}
+
+/* Melli: underline hover */
+.u-link {
+  position: relative;
+}
+.u-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 1.5px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+.u-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* spotlight card */
+.spotlight {
+  position: relative;
+  isolation: isolate;
+}
+.spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), var(--glow), transparent 60%);
+}
+.spotlight:hover::after {
+  opacity: 1;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
